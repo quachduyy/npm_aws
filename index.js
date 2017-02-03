@@ -11,13 +11,13 @@ module.exports.initBuckets = function (options) {
   STATIC_BUCKET = options.STATIC_BUCKET;
   ORIGIN_BUCKET = options.ORIGIN_BUCKET;
   serverUpload = options.url;
-  this.listBuckets(function (error, result) {
+  module.exports.listBuckets(function (error, result) {
     if (error)
       return console.error(error);
     _.map([STATIC_BUCKET, ORIGIN_BUCKET], function (item) {
       var index = _.findIndex(result.Buckets, {Name: item});
       if (index === -1) {
-        this.createBuckets(item, function (error, result) {
+        module.exports.createBuckets(item, function (error, result) {
           console.log(error, result)
         })
       }
@@ -40,7 +40,7 @@ module.exports.preparePut = function (options, data) {
     item.ext = fileExtension.pop();
     item.name = fileExtension.join('');
     item.parentId = options.parentId;
-    item.key = options.prefix || 'images' + '/' + AwsService.strToSlug(item.name) + '_' + date + '.' + item.ext;
+    item.key = options.prefix || 'images' + '/' + module.exports.strToSlug(item.name) + '_' + date + '.' + item.ext;
     if (item.bucket === 'origin') {
       item.key = "origin/" + item.key;
       item.uri = serverUpload + item.key
