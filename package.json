@@ -1,0 +1,22 @@
+{
+  "name": "aws_fim",
+  "version": "0.0.1",
+  "description": "Support upload file to object store AWS",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quachduyy/npm_aws.git"
+  },
+  "keywords": [
+    "aws"
+  ],
+  "author": "Quach Duy <quachduyy@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quachduyy/npm_aws/issues"
+  },
+  "homepage": "https://github.com/quachduyy/npm_aws#readme"
+}
