@@ -10,7 +10,7 @@ module.exports.initBuckets = function (options) {
   s3 = new AWS.S3(options);
   STATIC_BUCKET = options.STATIC_BUCKET;
   ORIGIN_BUCKET = options.ORIGIN_BUCKET;
-  serverUpload = options.url;
+  serverUpload = options.host;
   module.exports.listBuckets(function (error, result) {
     if (error)
       return console.error(error);
@@ -34,13 +34,14 @@ module.exports.preparePut = function (options, data) {
   var date = new Date().getTime();
   _.map(data, function (item) {
     var fileExtension = item.filename.split('.');
+    var name = module.exports.strToSlug(fileExtension.join(''));
     item.bucket = options.type || 'static';
     item.createdBy = options.createdBy;
     item.env = options.env;
     item.ext = fileExtension.pop();
     item.name = fileExtension.join('');
     item.parentId = options.parentId;
-    item.key = options.prefix || 'images' + '/' + module.exports.strToSlug(item.name) + '_' + date + '.' + item.ext;
+    item.key = options.prefix + '/' + name + '_' + date + '.' + item.ext || 'images' + '/' + name + '_' + date + '.' + item.ext;
     if (item.bucket === 'origin') {
       item.key = "origin/" + item.key;
       item.uri = serverUpload + item.key
