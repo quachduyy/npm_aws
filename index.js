@@ -45,6 +45,7 @@ module.exports.preparePut = function (options, data) {
       item.key = "origin/" + item.key;
       item.uri = serverUpload + item.key
     }
+    item.uri = serverUpload + item.key
     return item
   });
   return data
