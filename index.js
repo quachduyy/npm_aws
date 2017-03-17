@@ -4,6 +4,7 @@ var _ = require('lodash');
 var STATIC_BUCKET;
 var ORIGIN_BUCKET;
 var serverUpload;
+var serverStorage;
 var s3;
 
 module.exports.initBuckets = function (options) {
@@ -11,6 +12,7 @@ module.exports.initBuckets = function (options) {
   STATIC_BUCKET = options.STATIC_BUCKET;
   ORIGIN_BUCKET = options.ORIGIN_BUCKET;
   serverUpload = options.host;
+  serverStorage = options.storageHost;
   module.exports.listBuckets(function (error, result) {
     if (error)
       return console.error(error);
@@ -44,9 +46,9 @@ module.exports.preparePut = function (options, data) {
     item.key = options.prefix + '/' + name + '_' + date + '.' + item.ext || 'images' + '/' + name + '_' + date + '.' + item.ext;
     if (item.bucket === 'origin') {
       item.key = "origin/" + item.key;
-      item.uri = serverUpload + item.key
+      item.uri = serverStorage + item.key
     }
-    item.uri = serverUpload + item.key
+    item.uri = serverStorage + item.key;
     return item
   });
   return data
