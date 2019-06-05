@@ -16,6 +16,7 @@ var handleRequest = function(request, response) {
 };
 var www = http.createServer(handleRequest);
 www.listen(8080);
+console.log("Hello world from port 8080!!!");
 
 
 module.exports.initBuckets = function (options) {
